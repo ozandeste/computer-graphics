@@ -28,7 +28,7 @@
 </head>
 
 <body>
-    <div id="controls">
+    <div id="controls" style="display: none;">
         <label>Base Rotation: <input id="baseRotation" type="range" min="-180" max="180" value="0"></label><br><br>
         <label>Joint 1 Rotation: <input id="joint1" type="range" min="-180" max="180" value="10"></label><br><br>
         <label>Joint 2 Rotation: <input id="joint2" type="range" min="-180" max="180" value="60"></label><br><br>
@@ -46,10 +46,10 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        const light = new THREE.SpotLight( 0xffff00, 8 );
+        const light = new THREE.SpotLight( 0xffff00, 0.7 );
         light.castShadow = true; // default false
         scene.add( light );
-        light.position.set(50, 24, 12).normalize();
+        light.position.set(3.1, 7, 3);
 
         //Set up shadow properties for the light
         light.shadow.mapSize.width = 512; // default
@@ -66,14 +66,8 @@
         // AxesHelper
         const aHelper = new THREE.AxesHelper(5);
         scene.add(aHelper);
-/*
-        // Işık ekleme
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-        light.position.set(10, 3, 0).normalize();  // Daha güçlü ışık için pozisyonu ayarlama
-        scene.add(light);
 
-        const ambientLight = new THREE.AmbientLight(0x404040);  // Daha genel bir ışık
-        scene.add(ambientLight);*/
+      
 
         // Zemin ekleme
         const planeGeometry = new THREE.PlaneGeometry(20, 20);
@@ -116,19 +110,19 @@
         const sphereGeo = new THREE.SphereGeometry(0.2, 32, 16);
         const sphereMat = new THREE.MeshBasicMaterial({ color: 0xffff00 });
         const sphere = new THREE.Mesh(sphereGeo, sphereMat); scene.add(sphere);
-        sphere.position.set(3, 6, 3)
+        sphere.position.set(3, 7, 3)
 
-        const geometry = new THREE.BoxGeometry(0.7, 12, 1);
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const geometry = new THREE.BoxGeometry(1, 12, 1);
+        const material = new THREE.MeshBasicMaterial({ color: 0x212121 });
         const cube = new THREE.Mesh(geometry, material);
         cube.position.set(4.5, 2, 3)
         console.log(cube)
         scene.add(cube);
 
         const geometry2 = new THREE.BoxGeometry(2, 1, 1);
-        const material2 = new THREE.MeshBasicMaterial({ color: 0xFF0000 });
+        const material2 = new THREE.MeshBasicMaterial({ color: 0x212121 });
         const cube2 = new THREE.Mesh(geometry2, material2);
-        cube2.position.set(3.1, 7.6, 3)
+        cube2.position.set(3.1, 7.5, 3)
         console.log(cube2)
         scene.add(cube2);
 
@@ -144,7 +138,8 @@
 
         // Kamera pozisyonu
         camera.position.set(10, 10, 10);  // Kamerayı biraz uzağa alıp yukarıda tutuyoruz
-        camera.lookAt(robotGroup.position);  // Kameranın robot grubuna bakmasını sağlıyoruz
+        // camera.lookAt(robotGroup.position);  // Kameranın robot grubuna bakmasını sağlıyoruz
+        // camera.lookAt(geometry2);  // Kameranın robot grubuna bakmasını sağlıyoruz
 
         // OrbitControls ekleme
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
